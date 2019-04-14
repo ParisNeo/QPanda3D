@@ -23,6 +23,9 @@ from direct.gui.OnscreenImage import OnscreenImage
 class PandaTest(Panda3DWorld):
     def __init__(self, width=1024, height=768):
         Panda3DWorld.__init__(self, width=width, height=height)
+        
+        self.accept("a",lambda:print("yes"))
+        print("populating")
         self.cam.setPos(0, -58, 6)
         self.win.setClearColorActive(True)
         self.win.setClearColor(VBase4(0.5, 0, 0, 1))
@@ -101,6 +104,5 @@ if __name__ == "__main__":
 
     appw.setCentralWidget(main_widget)
     appw.show()
-    
     sys.exit(app.exec_())    
     

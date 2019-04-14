@@ -11,10 +11,16 @@ Description :
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-
+from PyQt5 import QtOpenGL
+import OpenGL
+OpenGL.ERROR_CHECKING = True
+from OpenGL.GL import *
+from OpenGL.GLU import *
+from OpenGL import error
 import sys
 # Panda imports
-from panda3d.core import Texture, WindowProperties 
+from panda3d.core import Texture, WindowProperties, CallbackGraphicsWindow
+from panda3d.core import loadPrcFileData
 
 __all__ = ["QPanda3DWidget"]
 
@@ -27,7 +33,8 @@ class QPanda3DWidget(QWidget):
     FPS : Number of frames per socond to refresh the screen
     """    
     def __init__(self, panda3DWorld,  parent=None, w_geometry = (0, 0, 800, 600), stretch=False, keep_ratio=False, FPS=60):
-        QWidget.__init__(self,  parent)
+        QtOpenGL.QGLWidget.__init__(self,  parent)
+        gsg = None
         #set fixed geometry        
         self.setGeometry(w_geometry[0], w_geometry[1], w_geometry[2], w_geometry[3])
         self.panda3DWorld = panda3DWorld
@@ -35,7 +42,10 @@ class QPanda3DWidget(QWidget):
         pandaTimer = QTimer(self)
         pandaTimer.timeout.connect(taskMgr.step)
         pandaTimer.start(0)
-        
+        self.setFocusPolicy(Qt.StrongFocus)
+
+
+
         # Setup another timer that redraws this widget in a specific FPS
         redrawTimer = QTimer(self)
         redrawTimer.timeout.connect(self.update)
@@ -48,11 +58,23 @@ class QPanda3DWidget(QWidget):
 
         self.stretch = stretch
         self.keep_ratio = keep_ratio
+    def keyPressEvent(self, evt):
+        key=evt.key()
+        if(key >= Qt.Key_Space and key <= Qt.Key_AsciiTilde):
+            evt_val = "{}".format(chr(evt.key())).lower()
+            print(evt_val)
+            messenger.send(evt_val)
+        else:
+            print("Not ASCII")
 
     def resizeEvent(self, evt):
-        #self.panda3DWorld.win.setSize(self.width(),self.height())
-        #self.panda3DWorld.screenTexture.setSize(self.width(),self.height())
         pass
+        """
+        wp = WindowProperties()
+        wp.setSize(self.width(), self.height())
+        wp.setOrigin(self.x(),self.y())
+        self.panda3DWorld.win.requestProperties(wp)
+        """
 
     def minimumSizeHint(self):
         return QSize(400,300)
@@ -68,7 +90,7 @@ class QPanda3DWidget(QWidget):
         changes stretch  status
         """
         self.keep_ratio = keep_ratio
-
+    
     # Use the paint event to pull the contents of the panda texture to the widget
     def paintEvent(self,  event):
         if self.panda3DWorld.screenTexture.mightHaveRamImage():
@@ -96,3 +118,4 @@ class QPanda3DWidget(QWidget):
                 self.paintSurface.drawImage(0,0, img)
 
             self.paintSurface.end()
+    

@@ -49,8 +49,11 @@ Starting from V 0.2, it is possible to change your QWidget size at runtime.
 You just need to specify the resizing policies when creating the QPanda3D widgt.
 
 Two new parameters can  be used:
-- stretch : a boolean to specify if the graphical zone should stratch when the widget is resized or not
+
+- stretch : a boolean to specify if the graphical zone should stratch when the widget is resized or not.
 - keep_ratio : tells the widget to keep the ratio of the screen which can be interesting if you don't want the view to be deformed if the stretching changes the ratio too much.
+  
+```python
 
 from QPanda3D.QPanda3DWidget import QPanda3DWidget
 if __name__ == "__main__":    

@@ -15,10 +15,11 @@ from PyQt5.QtWidgets import *
 from panda3d.core import loadPrcFileData
 #loadPrcFileData("", "window-type none") # Set Panda to draw its main window in an offscreen buffer
 from direct.showbase.DirectObject import DirectObject
-from panda3d.core import GraphicsOutput,  Texture, ConfigVariableManager
+from panda3d.core import GraphicsOutput,  Texture, ConfigVariableManager, WindowProperties
 
 # Set up Panda environment
 from direct.showbase.ShowBase import ShowBase
+import platform
 
 __all__ = ["Panda3DWorld"]
 
@@ -28,17 +29,18 @@ class Panda3DWorld(ShowBase):
     """
 
     def __init__(self, width=800, height=600, is_fullscreen=False):
-        cvMgr = ConfigVariableManager.getGlobalPtr()
-        cvMgr.listVariables()
+        self.width=width
+        self.height=height
         loadPrcFileData("","win-size {} {}".format(width, height))
         if(is_fullscreen):
             loadPrcFileData("","fullscreen #t")
         else:
             loadPrcFileData("", "window-type offscreen") # Set Panda to draw its main window in an offscreen buffer
         ShowBase.__init__(self)
+    
+        
         self.disableMouse()
         self.screenTexture = Texture()
         self.screenTexture.setMinfilter(Texture.FTLinear)
         self.screenTexture.setFormat(Texture.FRgba32)
         self.win.addRenderTexture(self.screenTexture, GraphicsOutput.RTMCopyRam)
-
