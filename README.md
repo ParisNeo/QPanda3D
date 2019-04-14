@@ -1,7 +1,15 @@
 # QPanda3D
 A working Panda3D wrapper for PyQt5
-
 The objective is to be able to put on the same screen, panda3D and pyQT widgets.
+
+This package is still a work in progress.
+What works :
+- Creating a panda3D world inside a seemlessly QWidget object that can be placed alog with other QT stuff
+- Full access to panda3D objects, lights ...
+
+What doesn't work yet:
+- Mouse and keyboard interactions
+- QWidget resizing. For now, the widget size is fixed, which means that you can not use it alongside with other Qt widgets without cropping the 3D scene.
 
 ## Installation
 ```bash
