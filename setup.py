@@ -3,7 +3,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 setuptools.setup(
      name='QPanda3D',  
-     version='0.1.1',
+     version='0.2',
      author="Saifeddine ALOUI",
      author_email="aloui.saifeddine@gmail.com",
      description="A binding to use Panda3D as a PyQt5 widget",

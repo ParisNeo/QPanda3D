@@ -22,7 +22,7 @@ from QPanda3D.Panda3DWorld import Panda3DWorld
 class MyWorld(Panda3DWorld):
         Panda3DWorld.__init__(self)
         # from this point, act as if you are defining a classic panda3D environment
-        base.cam.setPos(0, -28, 6)
+        self.cam.setPos(0, -28, 6)
         self.testModel = loader.loadModel('panda')
         self.testModel.reparentTo(render)
 ```
@@ -44,6 +44,42 @@ if __name__ == "__main__":
 
 ```
 
+## Widget resizing policy
+Starting from V 0.2, it is possible to change your QWidget size at runtime.
+You just need to specify the resizing policies when creating the QPanda3D widgt.
+
+Two new parameters can  be used:
+- stretch : a boolean to specify if the graphical zone should stratch when the widget is resized or not
+- keep_ratio : tells the widget to keep the ratio of the screen which can be interesting if you don't want the view to be deformed if the stretching changes the ratio too much.
+
+from QPanda3D.QPanda3DWidget import QPanda3DWidget
+if __name__ == "__main__":    
+    world = MyWorld() 
+    
+    app = QApplication(sys.argv)
+    appw=QMainWindow()
+    appw.setGeometry(50, 50, 800, 600)
+
+    pandaWidget = QPanda3DWidget(world, stretch=True, keep_ratio=True)
+    appw.setCentralWidget(pandaWidget)
+    appw.show()
+    
+    sys.exit(app.exec_())    
+
+```
+
+you can also tell the Panda3DWorld object what is the default view size that you prefer when creating it.
+
+```python
+from QPanda3D.Panda3DWorld import Panda3DWorld
+class MyWorld(Panda3DWorld):
+        Panda3DWorld.__init__(self, width=1024, height=768)
+        # from this point, act as if you are defining a classic panda3D environment
+        self.cam.setPos(0, -28, 6)
+        self.testModel = loader.loadModel('panda')
+        self.testModel.reparentTo(render)
+```
+Just make sure that your ratio is adequate with your real widget size.
+
 ## TODO
-- Add widget resizing capacilities
 - Add mouse and keyboard interactions
