@@ -62,10 +62,33 @@ class QPanda3DWidget(QWidget):
         key=evt.key()
         if(key >= Qt.Key_Space and key <= Qt.Key_AsciiTilde):
             evt_val = "{}".format(chr(evt.key())).lower()
-            print(evt_val)
             messenger.send(evt_val)
-        else:
-            print("Not ASCII")
+        elif key==Qt.Key_Up:
+            messenger.send("arrow_up")
+        elif key==Qt.Key_Down:
+            messenger.send("arrow_down")
+        elif key==Qt.Key_Left:
+            messenger.send("arrow_left")
+        elif key==Qt.Key_Right:
+            messenger.send("arrow_right")
+        elif key==Qt.Key_Escape:
+            messenger.send("escape")
+
+    def keyReleaseEvent(self, evt):
+        key=evt.key()
+        if(key >= Qt.Key_Space and key <= Qt.Key_AsciiTilde):
+            evt_val = "{}-up".format(chr(evt.key())).lower()
+            messenger.send(evt_val)
+        elif key==Qt.Key_Up:
+            messenger.send("arrow_up-up")
+        elif key==Qt.Key_Down:
+            messenger.send("arrow_down-up")
+        elif key==Qt.Key_Left:
+            messenger.send("arrow_left-up")
+        elif key==Qt.Key_Right:
+            messenger.send("arrow_right-up")
+        elif key==Qt.Key_Escape:
+            messenger.send("escape-up")
 
     def resizeEvent(self, evt):
         pass
