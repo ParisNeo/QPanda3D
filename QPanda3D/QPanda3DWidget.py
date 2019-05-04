@@ -11,18 +11,23 @@ Description :
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from PyQt5 import QtOpenGL
-import OpenGL
-OpenGL.ERROR_CHECKING = True
-from OpenGL.GL import *
-from OpenGL.GLU import *
-from OpenGL import error
 import sys
 # Panda imports
 from panda3d.core import Texture, WindowProperties, CallbackGraphicsWindow
 from panda3d.core import loadPrcFileData
 
 __all__ = ["QPanda3DWidget"]
+class QPanda3DSynchronizer(QTimer):
+    def __init__(self, qPanda3DWidget, FPS=60):
+        QThread.__init__(self)
+        self.qPanda3DWidget=qPanda3DWidget
+        dt=1000/FPS
+        self.setInterval(dt)
+        self.timeout.connect(self.tick)
+
+    def tick(self):
+        taskMgr.step()
+        self.qPanda3DWidget.update()
 
 class QPanda3DWidget(QWidget):
     """
@@ -33,23 +38,23 @@ class QPanda3DWidget(QWidget):
     FPS : Number of frames per socond to refresh the screen
     """    
     def __init__(self, panda3DWorld,  parent=None, w_geometry = (0, 0, 800, 600), stretch=False, keep_ratio=False, FPS=60):
-        QtOpenGL.QGLWidget.__init__(self,  parent)
-        gsg = None
+        QWidget.__init__(self,  parent)
+        QThread.__init__(self)
+
         #set fixed geometry        
         self.setGeometry(w_geometry[0], w_geometry[1], w_geometry[2], w_geometry[3])
         self.panda3DWorld = panda3DWorld
         # Setup a timer in Qt that runs taskMgr.step() to simulate Panda's own main loop
-        pandaTimer = QTimer(self)
-        pandaTimer.timeout.connect(taskMgr.step)
-        pandaTimer.start(0)
+        #pandaTimer = QTimer(self)
+        #pandaTimer.timeout.connect()
+        #pandaTimer.start(0)
+
         self.setFocusPolicy(Qt.StrongFocus)
 
-
-
         # Setup another timer that redraws this widget in a specific FPS
-        redrawTimer = QTimer(self)
-        redrawTimer.timeout.connect(self.update)
-        redrawTimer.start(1000/FPS)
+        #redrawTimer = QTimer(self)
+        #redrawTimer.timeout.connect(self.update)
+        #redrawTimer.start(1000/FPS)
         
         self.paintSurface = QPainter()
         self.rotate = QTransform()
@@ -58,6 +63,9 @@ class QPanda3DWidget(QWidget):
 
         self.stretch = stretch
         self.keep_ratio = keep_ratio
+        self.synchronizer= QPanda3DSynchronizer(self,FPS)
+        self.synchronizer.start()
+
     def keyPressEvent(self, evt):
         key=evt.key()
         if(key >= Qt.Key_Space and key <= Qt.Key_AsciiTilde):
