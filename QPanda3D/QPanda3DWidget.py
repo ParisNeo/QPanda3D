@@ -33,16 +33,13 @@ class QPanda3DWidget(QWidget):
     """
     An interactive panda3D QWidget
     Parent : Parent QT Widget
-    w_geometry : default Widget geometry (only if not in a layout)
-    stretch : Whether to stretch the scene to fit the widget layout
     FPS : Number of frames per socond to refresh the screen
     """    
-    def __init__(self, panda3DWorld,  parent=None, w_geometry = (0, 0, 800, 600), stretch=False, keep_ratio=False, FPS=60):
+    def __init__(self, panda3DWorld,  parent=None, FPS=60):
         QWidget.__init__(self,  parent)
         QThread.__init__(self)
 
         #set fixed geometry        
-        self.setGeometry(w_geometry[0], w_geometry[1], w_geometry[2], w_geometry[3])
         self.panda3DWorld = panda3DWorld
         # Setup a timer in Qt that runs taskMgr.step() to simulate Panda's own main loop
         #pandaTimer = QTimer(self)
@@ -61,8 +58,10 @@ class QPanda3DWidget(QWidget):
         self.rotate.rotate(180)
         self.out_image = QImage()
 
-        self.stretch = stretch
-        self.keep_ratio = keep_ratio
+        size = self.panda3DWorld.cam.node().get_lens().get_film_size()
+        self.initial_film_size = QSizeF(size.x, size.y)
+        self.initial_size = self.size()
+
         self.synchronizer= QPanda3DSynchronizer(self,FPS)
         self.synchronizer.start()
 
@@ -99,29 +98,14 @@ class QPanda3DWidget(QWidget):
             messenger.send("escape-up")
 
     def resizeEvent(self, evt):
-        pass
-        """
-        wp = WindowProperties()
-        wp.setSize(self.width(), self.height())
-        wp.setOrigin(self.x(),self.y())
-        self.panda3DWorld.win.requestProperties(wp)
-        """
+        lens = self.panda3DWorld.cam.node().get_lens()
+        lens.set_film_size(self.initial_film_size.width() * evt.size().width() / self.initial_size.width(),
+                           self.initial_film_size.height() * evt.size().height() / self.initial_size.height())
+        self.panda3DWorld.win.setSize(evt.size().width(), evt.size().height())
 
     def minimumSizeHint(self):
         return QSize(400,300)
 
-    def setStretch(self, stretch=False):
-        """
-        changes stretch  status
-        """
-        self.stretch = stretch
-
-    def setKeep_raqtio(self, keep_ratio=False):
-        """
-        changes stretch  status
-        """
-        self.keep_ratio = keep_ratio
-    
     # Use the paint event to pull the contents of the panda texture to the widget
     def paintEvent(self,  event):
         if self.panda3DWorld.screenTexture.mightHaveRamImage():
@@ -129,24 +113,7 @@ class QPanda3DWidget(QWidget):
             data = self.panda3DWorld.screenTexture.getRamImage().getData()
             img = QImage(data, self.panda3DWorld.screenTexture.getXSize(), self.panda3DWorld.screenTexture.getYSize(), QImage.Format_ARGB32).mirrored()
             self.paintSurface.begin(self)
-            if(self.stretch):
-                target = QRectF(0, 0, self.width(),self.height())
-                if(self.keep_ratio):
-                    if(self.width()<self.height()):
-                        h= self.panda3DWorld.screenTexture.getYSize()
-                        res=float(self.width())/float(self.height())
-                        w= res*h
-                        src = QRectF(0, 0, w, h)
-                    else:
-                        w=  self.panda3DWorld.screenTexture.getXSize()                        
-                        res=float(self.height())/float(self.width())
-                        h=  res*w
-                        src = QRectF(0, 0, w, h)
-                else:
-                    src = QRectF(0, 0, self.panda3DWorld.screenTexture.getXSize(), self.panda3DWorld.screenTexture.getYSize())
-                self.paintSurface.drawImage(target, img, src)
-            else:
-                self.paintSurface.drawImage(0,0, img)
+            self.paintSurface.drawImage(0,0, img)
 
             self.paintSurface.end()
     
