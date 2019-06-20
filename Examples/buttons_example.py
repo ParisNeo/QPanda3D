@@ -24,8 +24,8 @@ class PandaTest(Panda3DWorld):
     def __init__(self, width=1024, height=768):
         Panda3DWorld.__init__(self, width=width, height=height)
         self.cam.setPos(0, -58, 6)
-        self.win.setClearColorActive(True)
-        self.win.setClearColor(VBase4(0.5, 0, 0, 1))
+        self.buff.setClearColorActive(True)
+        self.buff.setClearColor(VBase4(0.5, 0, 0, 1))
         self.cam.node().getDisplayRegion(0).setSort(20)
         #Create a panda        
         self.panda= loader.loadModel("panda")

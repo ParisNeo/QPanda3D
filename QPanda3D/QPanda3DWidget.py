@@ -101,7 +101,7 @@ class QPanda3DWidget(QWidget):
         lens = self.panda3DWorld.cam.node().get_lens()
         lens.set_film_size(self.initial_film_size.width() * evt.size().width() / self.initial_size.width(),
                            self.initial_film_size.height() * evt.size().height() / self.initial_size.height())
-        self.panda3DWorld.win.setSize(evt.size().width(), evt.size().height())
+        self.panda3DWorld.buff.setSize(evt.size().width(), evt.size().height())
 
     def minimumSizeHint(self):
         return QSize(400,300)
