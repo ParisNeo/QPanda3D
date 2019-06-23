@@ -16,7 +16,10 @@ import sys
 from panda3d.core import Texture, WindowProperties, CallbackGraphicsWindow
 from panda3d.core import loadPrcFileData
 
+from QPanda3D.QPanda3D_Keys_Translation import QPanda3D_Key_translation
+
 __all__ = ["QPanda3DWidget"]
+
 class QPanda3DSynchronizer(QTimer):
     def __init__(self, qPanda3DWidget, FPS=60):
         QThread.__init__(self)
@@ -67,22 +70,20 @@ class QPanda3DWidget(QWidget):
 
     def keyPressEvent(self, evt):
         key=evt.key()
-        if(key >= Qt.Key_Space and key <= Qt.Key_AsciiTilde):
-            evt_val = "{}".format(chr(evt.key())).lower()
-            messenger.send(evt_val)
-        elif key==Qt.Key_Up:
-            messenger.send("arrow_up")
-        elif key==Qt.Key_Down:
-            messenger.send("arrow_down")
-        elif key==Qt.Key_Left:
-            messenger.send("arrow_left")
-        elif key==Qt.Key_Right:
-            messenger.send("arrow_right")
-        elif key==Qt.Key_Escape:
-            messenger.send("escape")
+        try:
+            k = "{}".format(QPanda3D_Key_translation[key])
+            messenger.send(k)
+        except:
+            print("Unimplemented key. Please send an issue on github to fix this problem")
 
     def keyReleaseEvent(self, evt):
         key=evt.key()
+        try:
+            k = "{}-up".format(QPanda3D_Key_translation[key])
+            messenger.send(k)
+        except:
+            print("Unimplemented key. Please send an issue on github to fix this problem")
+        """    
         if(key >= Qt.Key_Space and key <= Qt.Key_AsciiTilde):
             evt_val = "{}-up".format(chr(evt.key())).lower()
             messenger.send(evt_val)
@@ -96,7 +97,17 @@ class QPanda3DWidget(QWidget):
             messenger.send("arrow_right-up")
         elif key==Qt.Key_Escape:
             messenger.send("escape-up")
-
+        elif key==Qt.Key_Escape:
+            messenger.send("escape-up")
+        elif key==Qt.Key_Escape:
+            messenger.send("escape-up")
+        elif key==Qt.Key_Escape:
+            messenger.send("escape-up")
+        elif key==Qt.Key_Escape:
+            messenger.send("escape-up")
+        elif key==Qt.Key_Escape:
+            messenger.send("escape-up")
+        """
     def resizeEvent(self, evt):
         lens = self.panda3DWorld.cam.node().get_lens()
         lens.set_film_size(self.initial_film_size.width() * evt.size().width() / self.initial_size.width(),

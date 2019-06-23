@@ -1,6 +1,6 @@
 # -*- coding: utf-8-*-
 """
-Module : buttons_example
+Module : Env_Grid_Maker
 Author : Saifeddine ALOUI + code from Forklift 's code snippet could be found on panda3D's website
 Description :
     Creates a 3D implementation of grid that shows axes in 3 possible planes
