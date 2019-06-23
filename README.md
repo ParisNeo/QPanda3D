@@ -6,10 +6,9 @@ This package is still a work in progress.
 What works :
 - Creating a panda3D world inside a seemlessly QWidget object that can be placed alog with other QT stuff
 - Full access to panda3D objects, lights ...
-
+- Keyboard press and up are supported starting from v 0.5
 What doesn't work yet:
-- Mouse and keyboard interactions
-- QWidget resizing. For now, the widget size is fixed, which means that you can not use it alongside with other Qt widgets without cropping the 3D scene.
+- Mouse and timed keyboard interactions
 
 ## Installation
 ```bash
