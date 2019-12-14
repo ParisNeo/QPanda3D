@@ -57,7 +57,7 @@ class Panda3DWorld(ShowBase):
         props = FrameBufferProperties()
         props.set_rgb_color(True)
         props.set_rgba_bits(8, 8, 8, 8)
-        props.set_depth_bits(0)
+        props.set_depth_bits(8)
 
         self.buff = self.graphicsEngine.make_output(
             self.pipe, name, sort,
