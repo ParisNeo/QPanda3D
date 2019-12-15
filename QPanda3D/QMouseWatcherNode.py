@@ -7,8 +7,6 @@ Description :
     mouse position and button states through a parent QWidget.
 """
 
-import math
-
 # PyQt imports
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
