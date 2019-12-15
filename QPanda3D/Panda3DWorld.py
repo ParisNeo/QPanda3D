@@ -74,6 +74,8 @@ class Panda3DWorld(ShowBase):
         self.buff.addRenderTexture(self.screenTexture, GraphicsOutput.RTMCopyRam)
         self.buff.set_sort(sort)
         self.cam = self.makeCamera(self.buff)
+        self.camNode = self.cam.node()
+        self.camLens = self.camNode.get_lens()
 
         if clear_color is None:
             self.buff.set_clear_active(GraphicsOutput.RTPColor, False)

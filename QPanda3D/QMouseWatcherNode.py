@@ -37,9 +37,6 @@ class QMouseWatcherNode(MouseWatcher):
         # invert y
         rel_y = -rel_y
 
-        # adjust x to the current aspect ratio
-        rel_x *= self.parent.panda3DWorld.getAspectRatio()
-
         return LPoint2(rel_x, rel_y)
 
     def hasMouse(self):
