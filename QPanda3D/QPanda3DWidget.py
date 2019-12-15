@@ -22,7 +22,7 @@ __all__ = ["QPanda3DWidget"]
 
 class QPanda3DSynchronizer(QTimer):
     def __init__(self, qPanda3DWidget, FPS=60):
-        QThread.__init__(self)
+        QTimer.__init__(self)
         self.qPanda3DWidget=qPanda3DWidget
         dt=1000/FPS
         self.setInterval(dt)
@@ -40,7 +40,6 @@ class QPanda3DWidget(QWidget):
     """    
     def __init__(self, panda3DWorld,  parent=None, FPS=60):
         QWidget.__init__(self,  parent)
-        QThread.__init__(self)
 
         #set fixed geometry        
         self.panda3DWorld = panda3DWorld
