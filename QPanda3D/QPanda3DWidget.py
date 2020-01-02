@@ -11,8 +11,7 @@ Description :
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-import sys
-import traceback
+
 # Panda imports
 from panda3d.core import Texture, WindowProperties, CallbackGraphicsWindow
 from panda3d.core import loadPrcFileData
@@ -118,11 +117,12 @@ class QPanda3DWidget(QWidget):
             print("Unimplemented button. Please send an issue on github to fix this problem")
 
     def wheelEvent(self, evt):
-        if evt.angleDelta() > 0:
+        delta = evt.angleDelta().y()
+        if delta > 0:
             if self.debug:
                 print("wheel_up")
             messenger.send('wheel_up')
-        elif evt.angleDelta() < 0:
+        elif delta < 0:
             if self.debug:
                 print("wheel_down")
             messenger.send('wheel_down')
