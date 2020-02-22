@@ -82,7 +82,7 @@ Just make sure that your ratio is adequate with your real widget size.
 ## Special thanks
 I want to thank all the contributers to this little opensource project.
 In chronological order :
-- Thanks to fraca7 for his commit (Change film size according to widget resize)
-- Many thanks to nmevenkamp for the valuable updates and bugfixes he apported to this project.
+- Thanks to [fraca7](https://github.com/fraca7) for his commit (Change film size according to widget resize)
+- Many thanks to [nmevenkamp](https://github.com/nmevenkamp) for the valuable updates and bugfixes he apported to this project.
 
 If other people want to contribute to this project, the're welcome.
