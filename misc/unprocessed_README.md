@@ -1,8 +1,6 @@
 
 # QPanda3D
-
 !define(cite_)([!1](https://github.com/!1))
-
 A working Panda3D wrapper for PyQt5
 The objective is to be able to put on the same screen, panda3D and pyQT widgets.
 
