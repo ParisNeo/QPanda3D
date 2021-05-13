@@ -15,7 +15,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
 import sys
 
-from pandac.PandaModules import Point3, Vec3, Vec4, VBase4
+from panda3d.core import Point3, Vec3, Vec4, VBase4
 from direct.interval.LerpInterval import LerpHprInterval
 from direct.interval.IntervalGlobal import *
 from direct.gui.OnscreenImage import OnscreenImage

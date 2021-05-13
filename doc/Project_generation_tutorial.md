@@ -12,6 +12,12 @@ python setup.py sdist bdist_wheel
 python -m pip install --upgrade --force-reinstall dist/QPanda3D-*.*.*-py3-none-any.whl
 ```
 
+or 
+
+```bash
+python -m pip install --upgrade -e .
+```
+
 replace * with the version you are using
 
 ## Publish it
