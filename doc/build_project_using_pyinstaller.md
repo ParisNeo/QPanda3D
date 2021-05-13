@@ -6,7 +6,8 @@ When building an executable file using QPanda3D, please be aware of the GPL3 lic
 You must understand that the fact that QPanda3D uses PyQt forces us to have a GPL licence as a direct consequence to the GPL contamination. This means that your application is also contaminated with the GPL licence and you are obliged to provide the source code of your application in addition to the executable.
 
 We are aware of the constraints that this licence can cause for some use cases. But it is the rule of licences, take it or leave it.
-In next versions of QPanda3D, we will move to Pyside and change the licence to MIT to be more flexible as we do beleive that the library shouldn't impose the licence to be used by the final application. MIT licence ensures that QPanda3D stays opensource and be presented with code source link, but do not impose on the application to be contaminated by this fact. Which enables you to use it in comercial applications with no fees what so ever. We also welcome issues reporting and encourage contribution.
+In next versions of QPanda3D, we will move to Pyside and change the licence to MIT to be more flexible as we do beleive that the library shouldn't impose the licence to be used by the final application. MIT licence ensures that QPanda3D stays opensource and be presented with code source link, but do not impose on the application to be contaminated by this fact. 
+
 
 This being said. If you accept those conditions, we can build our exe. For the current version, your app will be under GPL licence until we completely move to PySide2 and change the licence to MIT. This means, you should provide a visible link to the users of your app to both your app source code, QPanda3D code, as well as PyQt source code.
 

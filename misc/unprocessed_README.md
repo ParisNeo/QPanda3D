@@ -94,5 +94,6 @@ In chronological order :
 
 - Thanks to !cite_(fraca7) for his commit (Change film size according to widget resize)
 - Many thanks to !cite_(nmevenkamp) for the valuable updates and bugfixes he apported to this project.
+- Also thanks to !cite_(augasur) for bringing to our knowledge problems he faced while using pyinstaller with qpanda3d (preblem solved).
 
 If other people want to contribute to this project, the're welcome.
