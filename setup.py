@@ -17,7 +17,7 @@ requirements_dev = read_requirements("requirements_dev.txt")
 
 setuptools.setup(
     name="QPanda3D",
-    version="0.2.8",
+    version="0.2.9",
     author="Saifeddine ALOUI",
     author_email="aloui.saifeddine@gmail.com",
     description="A binding to use Panda3D as a PyQt5 widget",

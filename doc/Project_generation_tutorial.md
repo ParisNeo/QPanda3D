@@ -32,4 +32,8 @@ Do all updates in misc/unprocessed_README.md, then preprocess it using [pp](http
 pp misc/unprocessed_README.md > README.md
 ```
 
-pp will process the unprocessed_README.md and apply special macros to generate the final README.md file.
+In windows, you may need to do it this way
+
+```bash
+.\pp.exe misc/unprocessed_README.md > README.md
+```

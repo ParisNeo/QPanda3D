@@ -8,6 +8,7 @@ Description :
     You should first create the Panda3DWorkd object before creating this widget.
 """
 # PyQt imports
+from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtCore import *
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
@@ -102,9 +103,20 @@ class QPanda3DWidget(QWidget):
             b = "{}{}".format(get_panda_key_modifiers_prefix(evt), QPanda3D_Button_translation[button])
             if self.debug:
                 print(b)
-            messenger.send(b)
+            messenger.send(b,[{"x":evt.x(),"y":evt.y()}])
         except:
             print("Unimplemented button. Please send an issue on github to fix this problem")
+
+    def mouseMoveEvent(self, evt:QtGui.QMouseEvent):
+        button = evt.button()
+        try:
+            b = "mouse-move"
+            if self.debug:
+                print(b)
+            messenger.send(b,[{"x":evt.x(),"y":evt.y()}])
+        except:
+            print("Unimplemented button. Please send an issue on github to fix this problem")
+
 
     def mouseReleaseEvent(self, evt):
         button = evt.button()
@@ -112,20 +124,18 @@ class QPanda3DWidget(QWidget):
             b = "{}{}-up".format(get_panda_key_modifiers_prefix(evt), QPanda3D_Button_translation[button])
             if self.debug:
                 print(b)
-            messenger.send(b)
+            messenger.send(b,[{"x":evt.x(),"y":evt.y()}])
         except:
             print("Unimplemented button. Please send an issue on github to fix this problem")
 
     def wheelEvent(self, evt):
         delta = evt.angleDelta().y()
-        if delta > 0:
+        try:
             if self.debug:
-                print("wheel_up")
-            messenger.send('wheel_up')
-        elif delta < 0:
-            if self.debug:
-                print("wheel_down")
-            messenger.send('wheel_down')
+                print(f"wheel {delta}")
+            messenger.send('wheel',[{"delta":delta}])
+        except:
+            print("Unimplemented button. Please send an issue on github to fix this problem")
 
     def keyPressEvent(self, evt):
         key = evt.key()

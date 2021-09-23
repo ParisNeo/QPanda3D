@@ -87,6 +87,37 @@ class MyWorld(Panda3DWorld):
 
 Just make sure that your ratio is adequate with your real widget size.
 
+## Mouse events handling
+Mouse position is sent from PyQt interface to panda using messages. You can get these information using the following event handlers :
+mouse1 :Mouse Button 1 Pressed
+mouse2 :Mouse Button 2 Pressed
+mouse3 :Mouse Button 3 Pressed
+mouse1-up :Mouse Button 1 Released
+mouse2-up :Mouse Button 2 Released
+mouse3-up :Mouse Button 3 Released
+wheel_up :Mouse Wheel rolled upwards
+wheel_down :Mouse Wheel rolled downwards
+
+When you handle those events, starting from version 0.2.9, you can add an event argument to your event handler method to receive relevent information about the actual position of the mouse in the PyQt 2D canvas.
+
+here is an example of how you can use this. You can also find a complete example in the examples list
+
+```python
+        #accept few mouse events
+        self.accept('mouse1', self.mousePressEventLeft)
+        self.accept("mouse2", self.wheelEvent)
+        self.accept("mouse1-up", self.mouseReleaseEventLeft)
+        self.accept("mouse-move", self.mouseMoveEvent)
+
+    def mousePressEventLeft(self, evt:dict):
+        le_key_evt.setText(f"press @ {evt['x']},{evt['y']}")
+    def mouseReleaseEventLeft(self, evt:dict):
+        le_key_evt.setText(f"release @ {evt['x']},{evt['y']}")
+    def wheelEvent(self, evt:dict):
+        le_key_evt.setText(f"Wheel with {evt['delta']}")
+    def mouseMoveEvent(self, evt:dict):
+        le_key_evt.setText(f"Mouse moved to  {evt['x']},{evt['y']}")
+```
 ## Special thanks
 
 I want to thank all the contributers to this little opensource project.
@@ -95,5 +126,6 @@ In chronological order :
 - Thanks to !cite_(fraca7) for his commit (Change film size according to widget resize)
 - Many thanks to !cite_(nmevenkamp) for the valuable updates and bugfixes he apported to this project.
 - Also thanks to !cite_(augasur) for bringing to our knowledge problems he faced while using pyinstaller with qpanda3d (preblem solved).
+- Also thanks to !cite_(arthurpdesimone) for bringing to our knowledge problems he faced while using mouse interaction.
 
 If other people want to contribute to this project, the're welcome.
