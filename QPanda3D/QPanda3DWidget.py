@@ -104,8 +104,9 @@ class QPanda3DWidget(QWidget):
             if self.debug:
                 print(b)
             messenger.send(b,[{"x":evt.x(),"y":evt.y()}])
-        except:
+        except Exception as e:
             print("Unimplemented button. Please send an issue on github to fix this problem")
+            print(e)
 
     def mouseMoveEvent(self, evt:QtGui.QMouseEvent):
         button = evt.button()
@@ -114,9 +115,9 @@ class QPanda3DWidget(QWidget):
             if self.debug:
                 print(b)
             messenger.send(b,[{"x":evt.x(),"y":evt.y()}])
-        except:
+        except Exception as e:
             print("Unimplemented button. Please send an issue on github to fix this problem")
-
+            print(e)
 
     def mouseReleaseEvent(self, evt):
         button = evt.button()
@@ -125,8 +126,9 @@ class QPanda3DWidget(QWidget):
             if self.debug:
                 print(b)
             messenger.send(b,[{"x":evt.x(),"y":evt.y()}])
-        except:
+        except Exception as e:
             print("Unimplemented button. Please send an issue on github to fix this problem")
+            print(e)
 
     def wheelEvent(self, evt):
         delta = evt.angleDelta().y()
@@ -134,8 +136,9 @@ class QPanda3DWidget(QWidget):
             if self.debug:
                 print(f"wheel {delta}")
             messenger.send('wheel',[{"delta":delta}])
-        except:
+        except Exception as e:
             print("Unimplemented button. Please send an issue on github to fix this problem")
+            print(e)
 
     def keyPressEvent(self, evt):
         key = evt.key()
@@ -144,8 +147,9 @@ class QPanda3DWidget(QWidget):
             if self.debug:
                 print(k)
             messenger.send(k)
-        except:
+        except Exception as e:
             print("Unimplemented key. Please send an issue on github to fix this problem")
+            print(e)
 
     def keyReleaseEvent(self, evt):
         key = evt.key()
@@ -154,8 +158,9 @@ class QPanda3DWidget(QWidget):
             if self.debug:
                 print(k)
             messenger.send(k)
-        except:
+        except Exception as e:
             print("Unimplemented key. Please send an issue on github to fix this problem")
+            print(e)
 
     def resizeEvent(self, evt):
         lens = self.panda3DWorld.cam.node().get_lens()
