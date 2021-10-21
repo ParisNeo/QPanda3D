@@ -47,15 +47,33 @@ def get_panda_key_modifiers(evt):
 
 
 def get_panda_key_modifiers_prefix(evt):
-    # join all modifiers (except NoModifier, which is None) with '-'
-    prefix = "-".join([mod for mod in get_panda_key_modifiers(evt) if mod is not None])
+        # join all modifiers (except NoModifier, which is None) with '-'
+    mods = [mod for mod in get_panda_key_modifiers(evt) if mod is not None]
+    prefix = "-".join(mods)
+
+    # Fix the case where the modifier key is pressed
+    # alone without other things
+    # if not things like control-control would be possible
+    if isinstance(evt, QtGui.QMouseEvent):
+        key = QPanda3D_Button_translation[evt.button()]
+    elif isinstance(evt, QtGui.QKeyEvent):
+        key = QPanda3D_Key_translation[evt.key()]
+    elif isinstance(evt, QtGui.QWheelEvent):
+        key = "wheel"
+    else:
+        raise NotImplementedError("Unknown event type")
+
+    if key in mods:
+        mods.remove(key)
+        prefix = "-".join(mods)
 
     # if the prefix is not empty, append a '-'
+    if prefix == "-":
+        prefix = ""
     if prefix:
-        prefix += '-'
+        prefix += "-"
 
     return prefix
-
 
 class QPanda3DWidget(QWidget):
     """
@@ -100,7 +118,7 @@ class QPanda3DWidget(QWidget):
     def mousePressEvent(self, evt):
         button = evt.button()
         try:
-            b = "{}{}".format(get_panda_key_modifiers_prefix(evt), QPanda3D_Button_translation[button])
+            b = f"{get_panda_key_modifiers_prefix(evt)}{QPanda3D_Button_translation[button]}"
             if self.debug:
                 print(b)
             messenger.send(b,[{"x":evt.x(),"y":evt.y()}])
@@ -122,7 +140,7 @@ class QPanda3DWidget(QWidget):
     def mouseReleaseEvent(self, evt):
         button = evt.button()
         try:
-            b = "{}{}-up".format(get_panda_key_modifiers_prefix(evt), QPanda3D_Button_translation[button])
+            b = f"{get_panda_key_modifiers_prefix(evt)}{QPanda3D_Button_translation[button]}-up"
             if self.debug:
                 print(b)
             messenger.send(b,[{"x":evt.x(),"y":evt.y()}])
@@ -133,9 +151,10 @@ class QPanda3DWidget(QWidget):
     def wheelEvent(self, evt):
         delta = evt.angleDelta().y()
         try:
+            w = f"{get_panda_key_modifiers_prefix(evt)}wheel"
             if self.debug:
-                print(f"wheel {delta}")
-            messenger.send('wheel',[{"delta":delta}])
+                print(f"{w} {delta}")
+            messenger.send(w, [{"delta": delta}])
         except Exception as e:
             print("Unimplemented button. Please send an issue on github to fix this problem")
             print(e)
@@ -143,7 +162,7 @@ class QPanda3DWidget(QWidget):
     def keyPressEvent(self, evt):
         key = evt.key()
         try:
-            k = "{}{}".format(get_panda_key_modifiers_prefix(evt), QPanda3D_Key_translation[key])
+            k = f"{get_panda_key_modifiers_prefix(evt)}{QPanda3D_Key_translation[key]}"
             if self.debug:
                 print(k)
             messenger.send(k)
@@ -154,7 +173,7 @@ class QPanda3DWidget(QWidget):
     def keyReleaseEvent(self, evt):
         key = evt.key()
         try:
-            k = "{}{}-up".format(get_panda_key_modifiers_prefix(evt), QPanda3D_Key_translation[key])
+            k = f"{get_panda_key_modifiers_prefix(evt)}{QPanda3D_Key_translation[key]}-up"
             if self.debug:
                 print(k)
             messenger.send(k)
