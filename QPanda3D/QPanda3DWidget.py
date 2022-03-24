@@ -28,7 +28,7 @@ class QPanda3DSynchronizer(QTimer):
     def __init__(self, qPanda3DWidget, FPS=60):
         QTimer.__init__(self)
         self.qPanda3DWidget = qPanda3DWidget
-        dt = 1000 / FPS
+        dt = 1000 // FPS
         self.setInterval(dt)
         self.timeout.connect(self.tick)
 
