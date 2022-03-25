@@ -36,6 +36,10 @@ class QPanda3DSynchronizer(QTimer):
         taskMgr.step()
         self.qPanda3DWidget.update()
 
+    def __del__(self):
+        self.stop()
+
+
 
 def get_panda_key_modifiers(evt):
     panda_mods = []
