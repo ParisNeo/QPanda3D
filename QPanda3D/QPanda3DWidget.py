@@ -33,8 +33,9 @@ class QPanda3DSynchronizer(QTimer):
         self.timeout.connect(self.tick)
 
     def tick(self):
-        taskMgr.step()
-        self.qPanda3DWidget.update()
+        if self.isActive():
+            taskMgr.step()
+            self.qPanda3DWidget.update()
 
     def __del__(self):
         self.stop()
