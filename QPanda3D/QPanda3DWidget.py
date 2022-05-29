@@ -28,13 +28,18 @@ class QPanda3DSynchronizer(QTimer):
     def __init__(self, qPanda3DWidget, FPS=60):
         QTimer.__init__(self)
         self.qPanda3DWidget = qPanda3DWidget
-        dt = 1000 / FPS
+        dt = 1000 // FPS
         self.setInterval(dt)
         self.timeout.connect(self.tick)
 
     def tick(self):
-        taskMgr.step()
-        self.qPanda3DWidget.update()
+        if self.isActive():
+            taskMgr.step()
+            self.qPanda3DWidget.update()
+
+    def __del__(self):
+        self.stop()
+
 
 
 def get_panda_key_modifiers(evt):
