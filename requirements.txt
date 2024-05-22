@@ -1,2 +1,2 @@
 Panda3D>=1.10.3
-PyQt5
+PyQt6
