@@ -20,7 +20,7 @@ setuptools.setup(
     version="0.2.10",
     author="Saifeddine ALOUI",
     author_email="aloui.saifeddine@gmail.com",
-    description="A binding to use Panda3D as a PyQt5 widget",
+    description="A binding to use Panda3D as a PyQt6 widget",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/ParisNeo/QPanda3D",
