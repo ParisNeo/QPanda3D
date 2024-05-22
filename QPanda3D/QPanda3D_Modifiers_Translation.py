@@ -7,18 +7,18 @@ Description :
     keyboard events.
 """
 # PyQt imports
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PyQt6.QtCore import *
+from PyQt6.QtGui import *
+from PyQt6.QtWidgets import *
 import sys
 __all__ = ["QPanda3D_Modifiers_Translation"]
 
 QPanda3D_Modifier_translation ={
-Qt.NoModifier:None,
-Qt.ShiftModifier:'shift',
-Qt.ControlModifier:'control',
-Qt.AltModifier:'alt',
-Qt.MetaModifier:'unknown',
-Qt.KeypadModifier:'unknown',
-Qt.GroupSwitchModifier:'unknown',
+Qt.KeyboardModifier.NoModifier:None,
+Qt.KeyboardModifier.ShiftModifier:'shift',
+Qt.KeyboardModifier.ControlModifier:'control',
+Qt.KeyboardModifier.AltModifier:'alt',
+Qt.KeyboardModifier.MetaModifier:'unknown',
+Qt.KeyboardModifier.KeypadModifier:'unknown',
+Qt.KeyboardModifier.GroupSwitchModifier:'unknown',
 }
