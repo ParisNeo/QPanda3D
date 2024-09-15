@@ -20,6 +20,7 @@ from panda3d.core import loadPrcFileData
 from QPanda3D.QPanda3D_Buttons_Translation import QPanda3D_Button_translation
 from QPanda3D.QPanda3D_Keys_Translation import QPanda3D_Key_translation
 from QPanda3D.QPanda3D_Modifiers_Translation import QPanda3D_Modifier_translation
+import builtins
 
 __all__ = ["QPanda3DWidget"]
 
@@ -34,7 +35,10 @@ class QPanda3DSynchronizer(QTimer):
 
     def tick(self):
         if self.isActive():
-            taskMgr.step()
+            try:
+                builtins.base.taskMgr.step()
+            except:
+                pass
             self.qPanda3DWidget.update()
 
     def __del__(self):
