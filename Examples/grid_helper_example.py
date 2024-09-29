@@ -11,10 +11,10 @@ Description :
 from QPanda3D.Panda3DWorld import Panda3DWorld
 from QPanda3D.QPanda3DWidget import QPanda3DWidget
 from QPanda3D.Helpers.Env_Grid_Maker import *
-# import PyQt5 stuff
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+# import PyQt6 stuff
+from PyQt6.QtCore import *
+from PyQt6.QtGui import *
+from PyQt6.QtWidgets import *
 import sys
 from panda3d.core import *
 from direct.interval.LerpInterval import LerpHprInterval
@@ -108,5 +108,5 @@ if __name__ == "__main__":
 
     appw.setCentralWidget(main_widget)
     appw.show()
-    sys.exit(app.exec_())    
+    sys.exit(app.exec())    
     

@@ -3,15 +3,15 @@
 Module : QPanda3DWidget
 Author : Saifeddine ALOUI
 Description :
-    This is the QWidget to be inserted in your standard PyQt5 application.
+    This is the QWidget to be inserted in your standard PyQt6 application.
     It takes a Panda3DWorld object at init time.
     You should first create the Panda3DWorkd object before creating this widget.
 """
 # PyQt imports
-from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PyQt6 import QtWidgets, QtGui
+from PyQt6.QtCore import *
+from PyQt6.QtGui import *
+from PyQt6.QtWidgets import *
 
 # Panda imports
 from panda3d.core import Texture, WindowProperties, CallbackGraphicsWindow
@@ -103,7 +103,7 @@ class QPanda3DWidget(QWidget):
         # pandaTimer.timeout.connect()
         # pandaTimer.start(0)
 
-        self.setFocusPolicy(Qt.StrongFocus)
+        self.setFocusPolicy(Qt.FocusPolicy.StrongFocus)
 
         # Setup another timer that redraws this widget in a specific FPS
         # redrawTimer = QTimer(self)
@@ -130,7 +130,7 @@ class QPanda3DWidget(QWidget):
             b = f"{get_panda_key_modifiers_prefix(evt)}{QPanda3D_Button_translation[button]}"
             if self.debug:
                 print(b)
-            messenger.send(b,[{"x":evt.x(),"y":evt.y()}])
+            messenger.send(b,[{"x":evt.position().x(),"y":evt.position().y()}])
         except Exception as e:
             print("Unimplemented button. Please send an issue on github to fix this problem")
             print(e)
@@ -141,7 +141,7 @@ class QPanda3DWidget(QWidget):
             b = "mouse-move"
             if self.debug:
                 print(b)
-            messenger.send(b,[{"x":evt.x(),"y":evt.y()}])
+            messenger.send(b,[{"x":evt.position().x(),"y":evt.position().y()}])
         except Exception as e:
             print("Unimplemented button. Please send an issue on github to fix this problem")
             print(e)
@@ -152,7 +152,7 @@ class QPanda3DWidget(QWidget):
             b = f"{get_panda_key_modifiers_prefix(evt)}{QPanda3D_Button_translation[button]}-up"
             if self.debug:
                 print(b)
-            messenger.send(b,[{"x":evt.x(),"y":evt.y()}])
+            messenger.send(b,[{"x":evt.position().x(),"y":evt.position().y()}])
         except Exception as e:
             print("Unimplemented button. Please send an issue on github to fix this problem")
             print(e)
@@ -209,7 +209,7 @@ class QPanda3DWidget(QWidget):
             self.panda3DWorld.screenTexture.setFormat(Texture.FRgba32)
             data = self.panda3DWorld.screenTexture.getRamImage().getData()
             img = QImage(data, self.panda3DWorld.screenTexture.getXSize(), self.panda3DWorld.screenTexture.getYSize(),
-                         QImage.Format_ARGB32).mirrored()
+                         QImage.Format.Format_ARGB32).mirrored()
             self.paintSurface.begin(self)
             self.paintSurface.drawImage(0, 0, img)
 
