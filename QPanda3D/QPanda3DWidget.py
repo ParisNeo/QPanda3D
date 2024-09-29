@@ -20,6 +20,7 @@ from panda3d.core import loadPrcFileData
 from QPanda3D.QPanda3D_Buttons_Translation import QPanda3D_Button_translation
 from QPanda3D.QPanda3D_Keys_Translation import QPanda3D_Key_translation
 from QPanda3D.QPanda3D_Modifiers_Translation import QPanda3D_Modifier_translation
+import builtins
 
 __all__ = ["QPanda3DWidget"]
 
@@ -34,7 +35,10 @@ class QPanda3DSynchronizer(QTimer):
 
     def tick(self):
         if self.isActive():
-            taskMgr.step()
+            try:
+                builtins.base.taskMgr.step()
+            except:
+                pass
             self.qPanda3DWidget.update()
 
     def __del__(self):
@@ -188,8 +192,12 @@ class QPanda3DWidget(QWidget):
 
     def resizeEvent(self, evt):
         lens = self.panda3DWorld.cam.node().get_lens()
-        lens.set_film_size(self.initial_film_size.width() * evt.size().width() / self.initial_size.width(),
-                           self.initial_film_size.height() * evt.size().height() / self.initial_size.height())
+        lens.set_film_size(
+            self.initial_film_size.width() * evt.size().width()
+            / self.initial_size.width(),
+            self.initial_film_size.height() * evt.size().height()
+            / self.initial_size.height()
+        )
         self.panda3DWorld.buff.setSize(evt.size().width(), evt.size().height())
 
     def minimumSizeHint(self):
@@ -206,3 +214,21 @@ class QPanda3DWidget(QWidget):
             self.paintSurface.drawImage(0, 0, img)
 
             self.paintSurface.end()
+
+    def movePointer(self, device, x, y):
+        # device: #FIXME not used yet, just to keep in same style of
+        #   arguments for `showbase.win.movePointer(device,x,y)`
+        # here x and y are the position you want to move mouse to;
+        # note that x and y are not in the same scale of Qt window coordinate,
+        # but expected to follow the same convention with the position given
+        # by QMouseWatcherNode;
+
+        widget_pos = self.mapToGlobal(QPoint(0, 0)) # get widget postion
+        # scale and shift it back to qt coordinate, you can see the inverse
+        # transformation of this in QMouseWatcherNode.getMouse()
+        scaled_x = -1 + 2 * x / self.parent.width()
+        scaled_y = -1 + 2 * y / self.parent.height()
+        scaled_y = - scaled_y
+        global_x = widget_pos.x() + int(scaled_x)
+        global_y = widget_pos.y() + int(scaled_y)
+        QCursor.setPos(global_x, global_y)
