@@ -6,8 +6,7 @@ Description :
     Creates a 3D implementation of grid that shows axes in 3 possible planes
     
 """
-from panda3d.core import *
-from direct.interval.IntervalGlobal import *
+from panda3d.core import LineSegs, VBase4, PandaNode, NodePath
 
 class Env_Grid_Maker:
     def __init__(self, XYPlaneShow = True, XZPlaneShow = False, YZPlaneShow = False, endCapLinesShow = True, XSize = 50, YSize = 50, ZSize = 50, gridStep = 10, subdiv = 10):

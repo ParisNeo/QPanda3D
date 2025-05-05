@@ -1,6 +1,4 @@
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+from PySide6.QtGui import Qt
 
 H=Qt.__dict__
 lst = [a for a in H if a.startswith("Key_")]

@@ -6,11 +6,9 @@ Description :
     Contains a dictionary that translates QT keyboard events to panda3d
     keyboard events.
 """
-# PyQt imports
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-import sys
+# PySide imports
+from PySide6.QtGui import Qt
+
 __all__ = ["QPanda3D_Modifiers_Translation"]
 
 QPanda3D_Modifier_translation ={
