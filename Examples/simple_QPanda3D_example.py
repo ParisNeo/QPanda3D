@@ -9,16 +9,11 @@ Description :
 
 from QPanda3D.Panda3DWorld import Panda3DWorld
 from QPanda3D.QPanda3DWidget import QPanda3DWidget
-# import PyQt5 stuff
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+# import PySide stuff
+from PySide6.QtWidgets import QApplication, QMainWindow
 import sys
 
-from panda3d.core import Point3, Vec3, Vec4, VBase4
-from direct.interval.LerpInterval import LerpHprInterval
-from direct.interval.IntervalGlobal import *
-from direct.gui.OnscreenImage import OnscreenImage
+from panda3d.core import Vec3, VBase4
 
 class PandaTest(Panda3DWorld):
     """
@@ -49,5 +44,4 @@ if __name__ == "__main__":
     appw.setCentralWidget(pandaWidget)
     appw.show()
     
-    sys.exit(app.exec_())    
-    
+    sys.exit(app.exec())

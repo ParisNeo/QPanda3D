@@ -6,11 +6,9 @@ Description :
     Contains a dictionary that translates QT mouse events to panda3d
     mouse events.
 """
-# PyQt imports
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
-import sys
+# PySide imports
+from PySide6.QtGui import Qt
+
 __all__ = ["QPanda3D_Keys_Translation"]
 
 QPanda3D_Button_translation ={
@@ -18,7 +16,6 @@ Qt.NoButton:'',
 Qt.AllButtons:'unknown',
 Qt.LeftButton:'mouse1',
 Qt.RightButton:'mouse2',
-Qt.MidButton:'mouse3',
 Qt.MiddleButton:'mouse3',
 Qt.BackButton:'unknown',
 Qt.XButton1:'unknown',

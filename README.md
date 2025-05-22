@@ -1,8 +1,8 @@
 
 # QPanda3D
 
-A working Panda3D wrapper for PyQt5
-The objective is to be able to put on the same screen, panda3D and pyQT widgets.
+A working Panda3D wrapper for PySide6
+The objective is to be able to put on the same screen, panda3D and QT widgets.
 
 This package is still a work in progress.
 What works :
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     appw.setCentralWidget(pandaWidget)
     appw.show()
     
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 ```
 
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     appw.setCentralWidget(pandaWidget)
     appw.show()
     
-    sys.exit(app.exec_())
+    sys.exit(app.exec())
 
 ```
 
@@ -88,7 +88,7 @@ class MyWorld(Panda3DWorld):
 Just make sure that your ratio is adequate with your real widget size.
 
 ## Mouse events handling
-Mouse position is sent from PyQt interface to panda using messages. You can get these information using the following event handlers :
+Mouse position is sent from Qt interface to panda using messages. You can get these information using the following event handlers :
 mouse1 :Mouse Button 1 Pressed
 mouse2 :Mouse Button 2 Pressed
 mouse3 :Mouse Button 3 Pressed
@@ -98,7 +98,7 @@ mouse3-up :Mouse Button 3 Released
 wheel_up :Mouse Wheel rolled upwards
 wheel_down :Mouse Wheel rolled downwards
 
-When you handle those events, starting from version 0.2.9, you can add an event argument to your event handler method to receive relevent information about the actual position of the mouse in the PyQt 2D canvas.
+When you handle those events, starting from version 0.2.9, you can add an event argument to your event handler method to receive relevent information about the actual position of the mouse in the Qt 2D canvas.
 
 here is an example of how you can use this. You can also find a complete example in the examples list
 

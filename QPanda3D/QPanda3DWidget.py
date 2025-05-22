@@ -3,19 +3,19 @@
 Module : QPanda3DWidget
 Author : Saifeddine ALOUI
 Description :
-    This is the QWidget to be inserted in your standard PyQt5 application.
+    This is the QWidget to be inserted in your standard PySide6 application.
     It takes a Panda3DWorld object at init time.
     You should first create the Panda3DWorkd object before creating this widget.
 """
-# PyQt imports
-from PyQt5 import QtWidgets, QtGui
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+# PySide imports
+from PySide6 import QtGui
+from PySide6.QtCore import QTimer, QSizeF, QSize, QPoint
+from PySide6.QtGui import Qt, QPainter, QTransform, QImage, QCursor
+from PySide6.QtWidgets import QWidget
 
 # Panda imports
-from panda3d.core import Texture, WindowProperties, CallbackGraphicsWindow
-from panda3d.core import loadPrcFileData
+from panda3d.core import Texture
+from direct.showbase.MessengerGlobal import messenger
 
 from QPanda3D.QPanda3D_Buttons_Translation import QPanda3D_Button_translation
 from QPanda3D.QPanda3D_Keys_Translation import QPanda3D_Key_translation

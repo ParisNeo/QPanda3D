@@ -7,13 +7,12 @@ Description :
     mouse position and button states through a parent QWidget.
 """
 
-# PyQt imports
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+# PySide imports
+from PySide6.QtGui import QCursor
+from PySide6.QtWidgets import QWidget
 
 # Panda imports
-from panda3d.core import *
+from panda3d.core import MouseWatcher, LPoint2
 
 __all__ = ["QMouseWatcherNode"]
 

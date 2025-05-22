@@ -6,21 +6,15 @@ Description :
     Inherit this object to create your custom world
 """
 
-# PyQt imports
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5.QtWidgets import *
+# PySide imports
+from PySide6.QtWidgets import QWidget
 
 # Panda imports
-from panda3d.core import *
-# from panda3d.core import loadPrcFileData
-# loadPrcFileData("", "window-type none") # Set Panda to draw its main window in an offscreen buffer
-from direct.showbase.DirectObject import DirectObject
-from panda3d.core import GraphicsOutput, Texture, ConfigVariableManager, WindowProperties
+from panda3d.core import LVecBase4f, loadPrcFileData, FrameBufferProperties, GraphicsPipe
+from panda3d.core import GraphicsOutput, Texture, WindowProperties
 
 # Set up Panda environment
 from direct.showbase.ShowBase import ShowBase
-import platform
 
 # Local imports
 from QPanda3D.QMouseWatcherNode import QMouseWatcherNode
